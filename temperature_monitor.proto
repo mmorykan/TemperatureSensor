@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+/* A service that allows you to monitor the temperature of the CPU */
+service TemperatureMonitor {
+    /* Gets the current CPU temperature */
+    rpc CurrentTemperature (Empty) returns (Temperature) {}
+    /* Gets the current CPU temperatures as a stream, with a delay between each response */
+    rpc Temperatures (Time) returns (stream Temperature) {}
+    /* Gets the minimum and maxium temperatures recorded */
+    rpc MinMaxTemperature (Empty) returns (MinMax) {}
+    /* Causes a stess test to run for the given duration */
+    rpc StressTest (Time) returns (Empty) {}
+}
+
+message Empty {
+}
+
+message Temperature {
+    double celsius = 1;
+}
+
+message Time {
+    double seconds = 1;
+}
+
+message MinMax {
+    double min = 1;
+    double max = 2;
+}
